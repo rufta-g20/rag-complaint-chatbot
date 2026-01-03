@@ -22,7 +22,7 @@ rag-complaint-chatbot/
 
 ---
 
-📊 Task 1: EDA Summary 
+## 📊 Task 1: EDA Summary 
 
 ### Data Overview
 
@@ -45,3 +45,20 @@ To improve embedding quality, all narratives underwent:
 The cleaned dataset is saved at `data/processed/filtered_complaints.csv`.
 
 ---
+
+## 🔍 Task 2: Vector Search Infrastructure
+
+### Sampling Strategy
+To ensure the RAG system performs efficiently on local hardware while maintaining high-quality responses, I implemented a **stratified sampling strategy**. I selected **14,825 complaints** proportionally across the five core product categories. This prevents the model from being biased toward high-volume categories like Credit Cards and ensures the chatbot can answer questions about Money Transfers or Personal Loans with equal accuracy.
+
+### Text Chunking & Embedding
+Long customer narratives were broken down into smaller, manageable pieces to optimize semantic search:
+* **Strategy:** Used `RecursiveCharacterTextSplitter`.
+* **Chunk Size:** 500 characters.
+* **Chunk Overlap:** 50 characters (ensures no context is lost between splits).
+* **Total Chunks Created:** 40,991.
+
+### Vector Store & Metadata
+* **Embedding Model:** `sentence-transformers/all-MiniLM-L6-v2`. I chose this model because it is highly efficient for CPU-based processing (384 dimensions) while providing state-of-the-art semantic mapping for English text.
+* **Vector Database:** **FAISS (Facebook AI Similarity Search)**. The index is persisted in `vector_store/faiss_index`.
+* **Traceability:** Each vector is stored with metadata including the **Original Complaint ID** and **Product Category**, allowing the RAG pipeline to cite its sources accurately during the retrieval phase.
