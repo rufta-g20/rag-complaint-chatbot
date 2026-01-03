@@ -3,3 +3,10 @@ matplotlib
 seaborn 
 notebook 
 nltk
+langchain
+langchain-community
+langchain-text-splitters
+langchain-core
+langchain-huggingface
+sentence-transformers
+faiss-cpu
