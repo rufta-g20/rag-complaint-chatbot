@@ -145,3 +145,34 @@ The system was tested against 5 representative financial queries. The evaluation
 | Interest Rates | Medium-High | Yes | 4 |
 
 ---
+
+## 💻 Task 4: Interactive Analyst Interface
+
+### Web Interface Implementation
+To make the RAG system accessible to non-technical users, a web-based chat interface was built using **Gradio**. This interface allows product managers to query the complaint database without writing code.
+
+* **Framework:** Gradio (v4.44.1 Stable).
+* **Core Features:** * **Streaming Output:** Responses are rendered token-by-token, providing immediate feedback even while the CPU is processing.
+    * **Trust & Verification:** The interface explicitly displays the **Verified Source Narratives** and their original **Complaint IDs** below every answer.
+    * **State Management:** Includes a "Clear" button to reset the session.
+
+### Technical Challenges & Solutions
+* **Environment Stability:** Encountered breaking changes in Gradio 6.0 regarding dictionary-based message formats. Solved by downgrading to a stable 4.x version and implementing a "Fail-Safe" Interface mode.
+* **Performance Optimization:** Given the 2-minute inference time on CPU for a 7B parameter model, I implemented a queuing system (`demo.queue()`) to handle long-running generation tasks without timing out the browser session.
+
+### How to Run the App
+1. Ensure the `Zephyr-7B` GGUF model is in your `D:/models/` directory.
+2. Activate your environment and run:
+   ```bash
+   python app.py
+   ```
+
+3. Open the local URL provided (typically `http://127.0.0.1:7860`).
+
+---
+
+## 🏆 Project Conclusion
+
+The CrediTrust Intelligent Complaint Analysis tool successfully demonstrates how open-source LLMs can be used to perform secure, private, and traceable analysis on sensitive financial data using local hardware.
+
+---
