@@ -19,3 +19,5 @@ ctransformers
 huggingface-hub
 tabulate
 ipywidgets
+
+gradio==4.44.1
