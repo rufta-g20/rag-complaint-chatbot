@@ -1,8 +1,11 @@
-pandas 
-matplotlib 
-seaborn 
-notebook 
+# Basic Data & Viz
+pandas
+matplotlib
+seaborn
+notebook
 nltk
+
+# RAG Infrastructure
 langchain
 langchain-community
 langchain-text-splitters
@@ -10,3 +13,9 @@ langchain-core
 langchain-huggingface
 sentence-transformers
 faiss-cpu
+
+# CPU-Optimized LLM Execution
+ctransformers
+huggingface-hub
+tabulate
+ipywidgets

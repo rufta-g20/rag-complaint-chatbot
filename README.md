@@ -113,3 +113,35 @@ Long narratives were broken into manageable pieces to optimize semantic search:
 * **Traceability:** Each vector stores metadata (Original Complaint ID and Product Category) to ensure retrieved chunks can be traced back to their source.
 
 ---
+
+## 🤖 Task 3: RAG Core Logic & Evaluation
+
+### RAG Pipeline Implementation
+
+The core engine of CrediTrust Intelligent Complaint Analysis is now fully functional. It utilizes a **Retrieve-Augment-Generate** architecture:
+
+1. **Retrieval:** Uses `all-MiniLM-L6-v2` to find the top 5 most relevant complaint chunks from the FAISS vector store.
+2. **Augmentation:** A custom "Senior Financial Analyst" prompt template is used to ground the LLM's response in the retrieved data, preventing hallucinations.
+3. **Generation:** Powered by a quantized **Zephyr-7B-Beta** model (GGUF format), optimized for high-speed inference on standard CPU hardware.
+
+### Hardware Optimization & Local LLM
+
+To accommodate hardware constraints (CPU-only and 15GB disk limitations), the pipeline was pivoted from standard Transformers to the `ctransformers` library.
+
+* **Model:** `zephyr-7b-beta.Q4_K_M.gguf` (approx. 4.4GB).
+* **Execution:** Runs entirely locally on the `D:` drive via `HF_HOME` configuration.
+* **Performance:** Achieves real-time response generation without requiring an expensive GPU or active internet connection.
+
+### Qualitative Evaluation
+
+The system was tested against 5 representative financial queries. The evaluation focused on **groundedness** (strictly using provided context) and **traceability** (citing source IDs).
+
+| Question Category | Accuracy | Source Cite | Quality Score (1-5) |
+| --- | --- | --- | --- |
+| Hidden Fees | High | Yes | 5 |
+| Identity Theft | High | Yes | 5 |
+| Account Transfers | Medium-High | Yes | 4 |
+| Customer Service | High | Yes | 5 |
+| Interest Rates | Medium-High | Yes | 4 |
+
+---
